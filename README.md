@@ -13,11 +13,12 @@ The app utilizes docker.
 To run the website, clone the project to your linux machine and run this command in your terminal:</br></br>
 `docker compose -f docker-compose.yml up -d --build`</br></br>
 Docker will try to run the project on your computer.</br>
-Now the project is up and running at:</br>
+After that go to:</br>
 http://0.0.0.0:8000
 
 ## Issues
 Submitting issues & pull requests are most welcome.
 
 ## License
-The license file is inside the project.
+GNU General Public License v3.0</br>
+A copy of the license file is included in project's files.
