@@ -1,18 +1,18 @@
 services:
 
  # postgresql database service 
-  db:
+  bm_db:
 
     # container name declaration
     container_name: postgres-bookmark
 
     # potgres image to pull from docker hub
     # using alpine because it is lightweight
-    image: postgres:alpine
+    image: postgres:alpine3.22
 
     # volume to keep database
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - bm_postgres_data:/var/lib/postgresql/data/
 
     # file to get environment variables from
     env_file:
@@ -24,9 +24,9 @@ services:
     # ports that postgres will utilize
     ports:
       - "5432:5432"
-      
+
   # backend  service to run django
-  backend:
+  bm_backend:
 
     # build from docker file
     build: .
@@ -55,8 +55,8 @@ services:
 
     # list of services which backend will start after
     depends_on:
-      - db
+      - bm_db
 
 # list of volumes used by services
 volumes:
-  postgres_data:
+  bm_postgres_data:
