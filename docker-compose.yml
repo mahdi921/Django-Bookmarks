@@ -1,30 +1,62 @@
 services:
 
+  # backend  service to run django
   backend:
+
+    # build from docker file
     build: .
+
+    # container name declaration
     container_name: backend
+
+    # command to run django server
     command: python manage.py runserver 0.0.0.0:8000
+
+    # always start automatically after system restarts
     restart: always
+
+    # volumes to keep data
     volumes:
       - ./core:/app
       - ./requirements.txt:/app/requirements.txt
+
+    # ports that django will utilize
     ports:
       "8000:8000"
+
+    # file to get environment variables from
     env_file:
       - .env
+
+    # list of services which backend will start after
     depends_on:
       - db
   
+  # postgresql database service 
   db:
+
+    # container name declaration
     container_name: postgres
+
+    # potgres image to pull from docker hub
+    # using alpine because it is lightweight
     image: postgres:alpine
+
+    # volume to keep database
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+
+    # file to get environment variables from
     env_file:
       - ./.pgenv
+
+    # always start automatically after system restarts
     restart: always
+
+    # ports that postgres will utilize
     ports:
       - "5432:5432"
 
+# list of volumes used by services
 volumes:
   postgres_data:
