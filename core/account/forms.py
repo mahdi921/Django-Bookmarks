@@ -8,28 +8,31 @@ User = get_user_model()
 
 
 class EditProfileForm(forms.ModelForm):
-    '''
+    """
     Custom form to use for editing user profile info
-    '''
+    """
+
     class Meta:
         model = Profile
         fields = [
-            'first_name', 'last_name',
-            'username', 'date_of_birth',
-            'bio', 'photo'
+            "first_name",
+            "last_name",
+            "username",
+            "date_of_birth",
+            "bio",
+            "photo",
         ]
 
 
 class EditUserForm(forms.ModelForm):
-    '''
+    """
     Custom form to use for editing user profile info
-    '''
+    """
+
     class Meta:
         model = User
-        fields = [
-            'email'
-        ]
-        
+        fields = ["email"]
+
 
 class UserRegistrationForm(UserCreationForm):
     """
