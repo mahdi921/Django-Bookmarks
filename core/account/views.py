@@ -1,15 +1,18 @@
 # importing render to render
 from django.shortcuts import render
+
 # importing generic views
 from django.views.generic import CreateView, UpdateView
+
 # importing django auth modules
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin, AccessMixin
-from django.contrib.auth.forms import UserCreationForm
+
 # importing reverse lazy for redirection
 from django.urls import reverse_lazy
+
 # importing custom forms
 from account import forms
 from account.models import Profile
@@ -19,9 +22,9 @@ User = get_user_model()
 
 
 class CustomLoginView(LoginView, AccessMixin):
-    '''
+    """
     using customized login view in order to deny access to authorized users
-    '''
+    """
 
     # denying access to authorized users
     def dispatch(self, request, *args, **kwargs):
@@ -34,14 +37,16 @@ class CustomLogoutView(LogoutView, AccessMixin):
     """
     custom logout view to tackle redirection to django's admin logout page
     """
-    template_name = 'registration/logout.html'
+
+    template_name = "registration/logout.html"
 
 
 class RegistrationView(CreateView, AccessMixin):
-    '''
+    """
     registration view to sign up users using django's built-in form
     and a custom template
-    '''
+    """
+
     form_class = forms.UserRegistrationForm
     template_name = "account/register.html"
     success_url = reverse_lazy("account:login")
@@ -54,22 +59,24 @@ class RegistrationView(CreateView, AccessMixin):
 
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
-    '''
+    """
     View to update user info
-    '''
+    """
+
     model = Profile
     form_class = forms.EditProfileForm
-    success_url = reverse_lazy('account:dashboard')
+    success_url = reverse_lazy("account:dashboard")
     template_name = "account/profile_edit_form.html"
-    
-    
+
+
 class UpdateUserView(LoginRequiredMixin, UpdateView):
-    '''
+    """
     View to update user info
-    '''
+    """
+
     model = User
     form_class = forms.EditUserForm
-    success_url = reverse_lazy('account:dashboard')
+    success_url = reverse_lazy("account:dashboard")
     template_name = "account/user_edit_form.html"
 
 
@@ -78,8 +85,4 @@ def dashboard(request):
     """
     user dashboard view
     """
-    return render(
-        request,
-        'account/dashboard.html',
-        {'section': 'dashboard'}
-    )
+    return render(request, "account/dashboard.html", {"section": "dashboard"})

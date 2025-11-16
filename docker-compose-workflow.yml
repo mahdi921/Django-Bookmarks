@@ -1,0 +1,59 @@
+services:
+
+ # postgresql database service 
+  bm_db:
+
+    # container name declaration
+    container_name: postgres-bookmark
+
+    # potgres image to pull from docker hub
+    # using alpine because it is lightweight
+    image: postgres:alpine3.22
+
+    # volume to keep database
+    volumes:
+      - bm_postgres_data:/var/lib/postgresql/data/
+    
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=test
+
+    # always start automatically after system restarts
+    restart: always
+
+    # ports that postgres will utilize
+    ports:
+      - "5432:5432"
+
+  # backend  service to run django
+  bm_backend:
+
+    # build from docker file
+    build: .
+
+    # container name declaration
+    container_name: backend-bookmark
+
+    # command to run django server
+    command: python manage.py runserver 0.0.0.0:8000
+
+    # always start automatically after system restarts
+    restart: always
+
+    # volumes to keep data
+    volumes:
+      - ./core:/app
+      - ./requirements.txt:/app/requirements.txt
+
+    # ports that django will utilize
+    ports:
+      - "8000:8000"
+
+    # list of services which backend will start after
+    depends_on:
+      - bm_db
+
+# list of volumes used by services
+volumes:
+  bm_postgres_data:
