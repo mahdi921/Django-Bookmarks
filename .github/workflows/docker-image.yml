@@ -17,4 +17,4 @@ jobs:
     - name: Build the Docker image
       run: docker compose -f docker-compose-workflow.yml up -d
     - name: Run Tests
-      run: docker compose -f docker-compose-workflow.yml exec bm_backend sh -c "flake8 && pytest ." 
+      run: docker compose exec bm_backend sh -c "flake8 && pytest ." 
