@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Edit user info{% endblock title %}
+
+{% block content %}
+<h1>Edit user info</h1>
+<p>You can use the form below to edit your user info:</p>
+<form method="post">
+    {{ form.as_p}}
+    {% csrf_token %}
+    <p><input type="submit" value="Save"></p>
+</form>
+{% endblock content %}

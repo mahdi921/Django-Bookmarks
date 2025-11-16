@@ -6,3 +6,10 @@ python-decouple
 
 # postgresql adapter
 psycopg[binary]
+
+# image handling module
+pillow
+
+# clean code modules
+flake8
+black
