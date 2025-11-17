@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Profile{% endblock title %}
+
+{% block content %}
+<h1>Edit Profile</h1>
+<p>You can use the form below to edit your profile:</p>
+<form method="post">
+    {{ form.as_p}}
+    {% csrf_token %}
+    <p><input type="submit" value="Save"></p>
+</form>
+{% endblock content %}

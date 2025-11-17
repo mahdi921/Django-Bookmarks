@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Create an account{% endblock title %}
+
+{% block content %}
+    <h1>Create an account</h1>
+    <p>Please sign up using the form below:</p>
+    <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Create my account"></p>
+    </form>
+{% endblock content %}
+      <!-- message here -->
+
+  {% if messages %}
+  {% for message in messages %}
+
+  <script>
+    alert("{{ message }}");
+  </script>
+
+  {% endfor %}
+  {% endif %}
+
+  <!--_______________________________________________-->
