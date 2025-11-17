@@ -17,3 +17,6 @@ black
 # testing modules
 pytest
 pytest-django
+
+# social auth modules
+social-auth-app-django
