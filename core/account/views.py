@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView
 
 # importing django auth modules
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LogoutView, LoginView
@@ -57,6 +58,17 @@ class RegistrationView(CreateView, AccessMixin):
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)
 
+    def form_valid(self, form):
+        message = "User account created successfully!"
+        messages.success(self.request, message=message)
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        message = "Your input was incorrect.\
+            please try again with correct info"
+        messages.error(self.request, message=message)
+        return super().form_invalid(form)
+
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     """
@@ -68,6 +80,17 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("account:dashboard")
     template_name = "account/profile_edit_form.html"
 
+    def form_valid(self, form):
+        message = "Profile updated successfully"
+        messages.success(self.request, message=message)
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        message = "Your input was incorrect.\
+            please try again with correct info"
+        messages.error(self.request, message=message)
+        return super().form_invalid(form)
+
 
 class UpdateUserView(LoginRequiredMixin, UpdateView):
     """
@@ -78,6 +101,17 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
     form_class = forms.EditUserForm
     success_url = reverse_lazy("account:dashboard")
     template_name = "account/user_edit_form.html"
+
+    def form_valid(self, form):
+        message = "User info updated successfully"
+        messages.success(self.request, message=message)
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        message = "Your input was incorrect.\
+            please try again with correct info"
+        messages.error(self.request, message=message)
+        return super().form_invalid(form)
 
 
 @login_required
