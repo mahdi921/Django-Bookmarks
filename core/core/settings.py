@@ -34,7 +34,7 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv(), default=[])
 
 INSTALLED_APPS = [
     "account.apps.AccountConfig",
-    # 'account',
+    "image.apps.ImageConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
