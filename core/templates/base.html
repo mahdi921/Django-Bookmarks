@@ -35,11 +35,18 @@
                 </span>
         {% endif %}
     </div>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    {{ message|safe }}
+                    <a href="#" class="close">x</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <div class="content">
         {% block content %}{% endblock content %}
     </div>
 </body>
-<footer>
-    {% block footer %}{% endblock footer %}
-</footer>
 </html>

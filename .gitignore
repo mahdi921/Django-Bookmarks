@@ -161,3 +161,5 @@ cython_debug/
 #.idea/
 ~/.pydistutils.cfg
 ~/.config/pip/pip.conf
+*.cert
+cert.*

@@ -35,7 +35,7 @@ services:
     container_name: backend-bookmark
 
     # command to run django server
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver_plus 0.0.0.0:8000 --cert-file cert.crt
 
     # always start automatically after system restarts
     restart: always

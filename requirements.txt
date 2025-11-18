@@ -1,5 +1,6 @@
 # Django modules
 django>=5.2,<6
+django-extensions
 
 # environment variables module
 python-decouple
@@ -17,3 +18,10 @@ black
 # testing modules
 pytest
 pytest-django
+
+# social auth modules
+social-auth-app-django
+
+# modules to run dev server locally
+werkzeug
+pyOpenSSl

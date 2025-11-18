@@ -12,14 +12,15 @@ class UserManager(BaseUserManager):
     """
 
     # use create_user() instead of create()
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email, password=None, **extra_fields):
         """
-        creating a user using email and username
+        creating a user using email
         """
         if not email:
-            raise ValueError("Users must have both username and email address")
+            raise ValueError("Users must have email address")
         user = self.model(email=self.normalize_email(email), **extra_fields)
-        user.set_password(password)
+        if password is not None:
+            user.set_password(password)
         user.save(using=self.db)
         return user
 

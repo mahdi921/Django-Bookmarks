@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.postgres",
+    "social_django",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -157,3 +159,13 @@ DEFAULT_FROM_EMAIL = "noreply@m.com"
 
 # user manager class
 AUTH_USER_MODEL = "account.User"
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "social_core.backends.google.GoogleOAuth2",
+]
+
+# Google oauth2 environment variables
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('GOOGLE_OAUTH2_SECRET')
