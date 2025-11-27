@@ -33,8 +33,6 @@ ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv(), default=[])
 # Application definition
 
 INSTALLED_APPS = [
-    "account.apps.AccountConfig",
-    "image.apps.ImageConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -44,6 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "social_django",
     "django_extensions",
+    "account.apps.AccountConfig",
+    "image.apps.ImageConfig",
 ]
 
 MIDDLEWARE = [
