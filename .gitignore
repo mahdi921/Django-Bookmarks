@@ -163,6 +163,3 @@ cython_debug/
 ~/.config/pip/pip.conf
 *.cert
 cert.*
-
-# ignore media files
-media/images/
