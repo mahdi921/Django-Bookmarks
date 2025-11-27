@@ -1,4 +1,4 @@
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -36,3 +36,10 @@ class ImageCreateView(LoginRequiredMixin, CreateView):
         new_image.save()
         messages.success(self.request, "Image added successfully.")
         return redirect(new_image.get_absolute_url())
+
+
+class ImageDetailView(DetailView):
+    from image.models import Image
+    from django.urls import reverse
+    model = Image
+    template_name = "images/image/detail.html"
