@@ -2,6 +2,7 @@ from django.views.generic import CreateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.views import View
 from image.forms import ImageCreateForm
 
 
@@ -39,7 +40,30 @@ class ImageCreateView(LoginRequiredMixin, CreateView):
 
 
 class ImageDetailView(DetailView):
+    '''View to show image details'''
     from image.models import Image
     from django.urls import reverse
     model = Image
     template_name = "images/image/detail.html"
+
+
+class ImageLikeView(LoginRequiredMixin, View):
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        image_id = request.POST.get("id")
+        action = request.POST.get("action")
+
+        from django.http import JsonResponse
+        if action and image_id:
+            try:
+                from image.models import Image
+                image = Image.objects.get(id=image_id)
+                if action == "like":
+                    image.users_like.add(request.user.profile)
+                else:
+                    image.users_like.remove(request.user.profile)
+                return JsonResponse({"status": "ok"})
+            except Image.DoesNotExist:
+                pass
+        return JsonResponse({"status": "error"})
