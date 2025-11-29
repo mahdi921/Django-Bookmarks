@@ -27,7 +27,7 @@ urlpatterns = [
         "social-auth/",
         include("social_django.urls", namespace="social")
     ),
-    path("images/", include("image.urls", namespace="images")),
+    path("image/", include("image.urls", namespace="image")),
 ]
 
 if settings.DEBUG:
