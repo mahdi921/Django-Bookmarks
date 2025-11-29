@@ -52,14 +52,13 @@
 {% endblock content %}
 
 {% block domready %}
-    const url = "{% url 'image:like' %}"; // verify this URL name matches your urls.py ('images' vs 'image')
+    const url = "{% url 'image:like' %}"; 
     var defaultOptions = {
         method: "POST",
         headers: { "X-CSRFToken": csrftoken },
         credentials: "same-origin"
     };
 
-    // delegate click to the like button (works even if markup changes)
     document.addEventListener("click", function (e) {
         const likeButton = e.target.closest("a.like-button");
         if (!likeButton) return;
