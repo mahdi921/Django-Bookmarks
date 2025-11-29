@@ -19,4 +19,9 @@ urlpatterns = [
         views.ImageLikeView.as_view(),
         name="like"
     ),
+    path(
+        '',
+        views.ImageListView.as_view(),
+        name='list'
+    ),
 ]

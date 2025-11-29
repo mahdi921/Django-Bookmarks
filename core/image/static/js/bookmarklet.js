@@ -53,7 +53,7 @@ function bookmarkletLaunch() {
     image.addEventListener('click', function(event){
       imageSelected = event.target;
       bookmarklet.style.display = 'none';
-      window.open(siteUrl + 'images/create/?url='
+      window.open(siteUrl + 'image/create/?url='
                   + encodeURIComponent(imageSelected.src)
                   + '&title='
                   + encodeURIComponent(document.title),
