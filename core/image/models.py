@@ -46,5 +46,6 @@ class Image(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
+        '''Absolute url for each image'''
         from django.urls import reverse
         return reverse("image:detail", args=[self.id, self.slug])
