@@ -8,22 +8,41 @@
     <a href="{{ image.image.url }}">
         <img src="{% thumbnail image.image 300x0 %}" class="image-detail">
     </a>
-    {% with total_likes=image.users_like.count %}
+    {% with total_likes=image.users_like.count users_like=image.users_like.all %}
         <div class="image-info">
             <div>
                 <span class="count">
-                    {{ total_likes }} like{{ total_likes|pluralize }}
+                    <span class="total">{{ total_likes }}</span>
+                    like{{ total_likes|pluralize }}
                 </span>
+                <a href="#" 
+                data-id="{{ image.id }}"
+                {% if request.user.profile in users_like %}
+                    data-action="unlike"
+                {% else %}
+                data-action="like"
+                {% endif %}
+                class="like-button">
+                    {% if request.user.profile not in users_like %}
+                        Like
+                    {% else %}
+                        Unlike    
+                    {% endif %}
+                </a>
             </div>
             {{ image.description|linebreaks }}
         </div>
         <div class="image-likes">
+            <p>Users liked:</p>
             {% for user in image.users_like.all %}
                 <div>
-                    {% if user.profile.photo %}
-                        <img src="{{ user.profile.photo.url }}" alt="photo">
-                    {% endif %}
-                    <p> {{ user.profile.first_name }} </p>
+                    
+                        {% if user.photo %}
+                            <img src="{{ user.photo.url }}" alt="photo">
+                        {% endif %}
+                        <p> {{ user }} </p>
+                        <br>
+                    
                 </div>
             {% empty %}
                 Nobody liked this image yet!
@@ -31,3 +50,41 @@
         </div>
     {% endwith %}
 {% endblock content %}
+
+{% block domready %}
+    const url = "{% url 'image:like' %}"; // verify this URL name matches your urls.py ('images' vs 'image')
+    var defaultOptions = {
+        method: "POST",
+        headers: { "X-CSRFToken": csrftoken },
+        credentials: "same-origin"
+    };
+
+    // delegate click to the like button (works even if markup changes)
+    document.addEventListener("click", function (e) {
+        const likeButton = e.target.closest("a.like-button");
+        if (!likeButton) return;
+        e.preventDefault();
+
+        var formData = new FormData();
+        formData.append("id", likeButton.dataset.id);
+        formData.append("action", likeButton.dataset.action);
+
+        var options = Object.assign({}, defaultOptions, { body: formData });
+
+        fetch(url, options)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "ok") {
+                    var previousAction = likeButton.dataset.action;
+                    var action = previousAction === "like" ? "unlike" : "like";
+                    likeButton.dataset.action = action;
+                    likeButton.textContent = action.charAt(0).toUpperCase() + action.slice(1);
+
+                    var likeCount = document.querySelector("span.total");
+                    var totalLikes = parseInt(likeCount.textContent, 10) || 0;
+                    likeCount.textContent = previousAction === "like" ? totalLikes + 1 : totalLikes - 1;
+                }
+            })
+            .catch(err => console.error("Like request failed:", err));
+    });
+{% endblock domready %}
