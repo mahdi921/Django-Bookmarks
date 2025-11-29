@@ -28,3 +28,6 @@ pyOpenSSl
 
 # download images module
 requests
+
+# Module to create image thumbnails
+easy-thumbnails
