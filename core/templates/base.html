@@ -16,7 +16,7 @@
                     <a href="{% url "account:dashboard" %}">My dashboard</a>
                 </li>
                 <li {% if section == 'images' %}class="selected"{% endif %}>
-                    <a href="#">Images</a>
+                    <a href="{% url "image:list" %}">Images</a>
                 </li>
                 <li {% if section == 'people' %}class="selected"{% endif %}>
                     <a href="#">People</a>
@@ -48,5 +48,14 @@
     <div class="content">
         {% block content %}{% endblock content %}
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script>
+        const csrftoken = Cookies.get('csrftoken');
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // DOM loaded
+            {% block domready %}
+            {% endblock domready %}
+        })
+    </script>
 </body>
 </html>

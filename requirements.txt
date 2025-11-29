@@ -25,3 +25,9 @@ social-auth-app-django
 # modules to run dev server locally
 werkzeug
 pyOpenSSl
+
+# download images module
+requests
+
+# Module to create image thumbnails
+easy-thumbnails
