@@ -42,7 +42,6 @@ class ImageCreateView(LoginRequiredMixin, CreateView):
 class ImageDetailView(DetailView):
     '''View to show image details'''
     from image.models import Image
-    from django.urls import reverse
     model = Image
     template_name = "images/image/detail.html"
 
