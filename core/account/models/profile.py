@@ -14,6 +14,12 @@ class Profile(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
     bio = models.TextField(blank=True)
     photo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True)
+    following = models.ManyToManyField(
+        "self",
+        through="account.Contact",
+        related_name="followers",
+        symmetrical=False
+    )
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
