@@ -2,7 +2,7 @@
 from django.shortcuts import render
 
 # importing generic views
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView, DetailView
 
 # importing django auth modules
 from django.contrib import messages
@@ -120,3 +120,24 @@ def dashboard(request):
     user dashboard view
     """
     return render(request, "account/dashboard.html", {"section": "dashboard"})
+
+
+class UserListView(LoginRequiredMixin, ListView):
+    model = Profile
+    queryset = model.objects.filter(is_active=True)
+    template_name = 'account/user/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["section"] = "people"
+        context["users"] = self.queryset
+        return context
+
+
+class UserDetailView(LoginRequiredMixin, DetailView):
+    model = Profile
+    template_name = 'account/user/detail.html'
+    context_object_name = "profile"
+
+    def get_queryset(self):
+        return self.model.objects.filter(user__is_active=True)
