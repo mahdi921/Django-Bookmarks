@@ -52,7 +52,23 @@ urlpatterns = [
     # dashboard url
     path("", views.dashboard, name="dashboard"),
     path(
-        "edit-profile/<int:pk>/", views.UpdateProfileView.as_view(), name="edit_profile"
+        "edit-profile/<int:pk>/",
+        views.UpdateProfileView.as_view(),
+        name="edit_profile"
     ),
-    path("edit-user/<int:pk>/", views.UpdateUserView.as_view(), name="edit_user"),
+    path(
+        "edit-user/<int:pk>/",
+        views.UpdateUserView.as_view(),
+        name="edit_user"
+    ),
+    path(
+        "users/",
+        views.UserListView.as_view(),
+        name="user_list"
+    ),
+    path(
+        "user/<username>/",
+        views.UserDetailView.as_view(),
+        name="user_detail"
+        ),
 ]

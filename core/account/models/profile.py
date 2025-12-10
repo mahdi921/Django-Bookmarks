@@ -25,3 +25,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.email
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse("account:user_detail", kwargs={"username": self.username})

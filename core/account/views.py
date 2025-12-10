@@ -124,7 +124,7 @@ def dashboard(request):
 
 class UserListView(LoginRequiredMixin, ListView):
     model = Profile
-    queryset = model.objects.filter(is_active=True)
+    queryset = model.objects.filter(user__is_active=True)
     template_name = 'account/user/list.html'
 
     def get_context_data(self, **kwargs):

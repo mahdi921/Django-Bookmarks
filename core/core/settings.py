@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from django.urls import reverse_lazy
 from pathlib import Path
 from decouple import config, Csv
 
@@ -158,8 +159,13 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # EMAIL_PORT = 25
 DEFAULT_FROM_EMAIL = "noreply@m.com"
 
-# user manager class
+# user settings
 AUTH_USER_MODEL = "account.User"
+# ABSOLUTE_URL_OVERRIDES = {
+#     "auth.user": lambda u: reverse_lazy(
+#         "user_detail", args=[u.username]
+#     )
+# }
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = [
